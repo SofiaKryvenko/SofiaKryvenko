@@ -46,16 +46,21 @@ export const userSignupEpic = (action$, state$, { firebase }) =>
     })
   )
 
+
 export const userSignupUpdateEpic = (action$, state$, { firebase }) =>
   action$.pipe(
     ofType(ActionTypes.USER_SIGNUP_UPDATE),
     flatMap((action) => combineLatest(firebase, from([action.payload]))),
     flatMap(([app, payload]) => {
+      
       return createObservableFromFirebase(
         app.auth().currentUser.updateProfile({ displayName: payload }),
         payload
       ).pipe(
-        switchMap((payload) => concat(of(userSignupFinish()), of(setUserUpdate(payload)))),
+
+        switchMap((payload) => {
+          
+          return concat(of(userSignupFinish()), of(setUserUpdate(payload)))}),
         catchError((err) => of(userLoginSignupError(err)))
       )
     })

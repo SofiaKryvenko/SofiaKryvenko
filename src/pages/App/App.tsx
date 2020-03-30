@@ -39,15 +39,15 @@ class App extends React.Component {
 		return (
 
 			<Grid container justify="center" className="app-wrapper">
-				<Header logout={this.props.userLogOut}/>
+				{this.props.user && <Header logout={this.props.userLogOut} />}
 				<AppRouter/>
 		 	</Grid>
 		);
 	}
 }
 
-const mapStateToProps = () => ({
-	
+const mapStateToProps = (state) => ({
+	user:state.auth.user
   });
 
 
