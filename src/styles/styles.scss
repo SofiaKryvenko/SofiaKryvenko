@@ -1,0 +1,23 @@
+@import "./common.scss";
+@import "./spacing.scss";
+
+#app {
+    height: 100%;
+  }
+  
+.app-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content{
+    flex: 1 0 auto;
+}
+
+.link,:hover{
+    
+    // &:hover {
+      text-decoration: none;
+    // }
+}
