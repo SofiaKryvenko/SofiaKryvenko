@@ -19,3 +19,7 @@ export const USER_LOGIN_SIGNUP_ERROR = '[LoginSignup] User LoginSignup Error'
 export const USER_SIGN_OUT = "USER_SIGN_OUT"
 export const USER_SIGN_OUT_SUCCESS ="USER_SIGN_OUT_SUCCESS"
 export const USER_SIGN_OUT_FAIL = "USER_SIGN_OUT_FAIL"
+
+export const FETCH_MOVIES = 'FETCH_MOVIES';
+export const FETCH_MOVIES_SUCCESS = 'FETCH_MOVIES_SUCCESS';
+export const FETCH_MOVIES_FAILURE = 'FETCH_MOVIES_FAILURE';

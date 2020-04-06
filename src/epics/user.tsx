@@ -1,5 +1,7 @@
 import { ofType } from 'redux-observable'
 import { combineLatest, concat, from, of } from 'rxjs'
+import { catchError, flatMap, map, switchMap,tap,mapTo } from 'rxjs/operators'
+
 import * as ActionTypes from "../constants/actionTypes"
 import {
 
@@ -9,7 +11,6 @@ import {
   userSignupUpdate,
   userLogOutSuccess
 } from '../actions/user'
-import { catchError, flatMap, map, switchMap,tap, mergeMap,mapTo } from 'rxjs/operators'
 import { createObservableFromFirebase } from '../utils/createObservable'
 import { setUserUpdate } from '../actions/auth'
 

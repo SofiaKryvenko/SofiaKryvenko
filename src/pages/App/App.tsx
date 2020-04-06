@@ -40,7 +40,10 @@ class App extends React.Component {
 
 			<Grid container justify="center" className="app-wrapper">
 				{this.props.user && <Header logout={this.props.userLogOut} />}
-				<AppRouter/>
+				<div className="page-content">
+					<AppRouter/>
+				</div>
+				
 		 	</Grid>
 		);
 	}

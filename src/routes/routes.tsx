@@ -3,7 +3,8 @@ import {map} from "ramda";
 import Login from "../containers/Login"
 import Register from "../containers/Register"
 import Landing from "../pages/Landing"
-import Home from "../pages/Home"
+import Home from "../containers/Home"
+import Movie from "../pages/Movie"
 
 import WithAutorization from "../HOCs/WithAuthorization"
 
@@ -11,7 +12,8 @@ const SCREENS ={
     START_PAGE:Landing,
     LOGIN:Login,
     REGISTER:Register,
-    HOME:Home
+    HOME:Home,
+    MOVIE_INFO:Movie
 }
 
 
@@ -23,7 +25,10 @@ const publicRoutes=()=>({
 
 const privateRoutes =()=>{
 
-    const routes={"/home":SCREENS.HOME}
+    const routes={
+        "/home":SCREENS.HOME,
+        "/movie/:id":SCREENS.MOVIE_INFO
+    }
 
     return map(WithAutorization(),{...routes})
 }
