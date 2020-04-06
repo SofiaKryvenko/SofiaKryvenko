@@ -19,7 +19,7 @@ const PaginationDisplay =({count,changePage})=>{
     changePage(value);
   };
 
-  return    <div className={classes.root}>
+  return    <div className={`${classes.root} mt-30 mb-30`}>
   <Pagination count={count} page={page} onChange={handleChange} />
 </div>
 }

@@ -26,7 +26,7 @@ const publicRoutes=()=>({
 const privateRoutes =()=>{
 
     const routes={
-        "/home":SCREENS.HOME,
+        "/home/:page?":SCREENS.HOME,
         "/movie/:id":SCREENS.MOVIE_INFO
     }
 

@@ -1,4 +1,5 @@
 import React from 'react' 
+import {propOr} from "ramda"
 
 import Grid from '@material-ui/core/Grid';
 import SearchBox from "../../components/SearchBox"
@@ -17,18 +18,21 @@ class Home extends React.Component{
     }
 
 componentDidMount(){
-    this.props.fetchMovies({page:1})
+    const {match} = this.props
+    const page = propOr(1,match.params)
+    this.props.fetchMovies({page:page})
 }
 
 onHandlePageChange(page){
     this.props.fetchMovies({page:page})
     window.scrollTo(0,0)
+    this.props.history.push(`/home/${page}`);
 }
 
     render(){
-        const {movies} = this.props;
+        const {movies,match} = this.props;
 
-        console.log("currentPage",movies)
+        console.log("currentPage",match)
         return(
             <Grid container className="container" justify="center">            
                 <SearchBox/>
