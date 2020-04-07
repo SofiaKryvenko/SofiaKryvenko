@@ -4,7 +4,7 @@ import Login from "../containers/Login"
 import Register from "../containers/Register"
 import Landing from "../pages/Landing"
 import Home from "../containers/Home"
-import Movie from "../pages/Movie"
+import Movie from "../containers/Movie"
 
 import WithAutorization from "../HOCs/WithAuthorization"
 

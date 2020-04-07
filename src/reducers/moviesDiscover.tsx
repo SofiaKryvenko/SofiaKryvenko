@@ -12,16 +12,17 @@ const initialState ={
         keywords: ''
       },
     movies:[],
+    genres:[],
     loading:false,
-    movieError:null,
-    hasMore:true,
+    error:null,
     currentPage:1,
-    totalCountPage:null
+    totalCountPage:null,
 }
 
-const movies = (state = initialState, action) => {
+const moviesDiscover = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.FETCH_MOVIES:
+        case ActionTypes.FETCH_GENRES:   
             return {
                 ...state,
                 loading:true
@@ -37,12 +38,22 @@ const movies = (state = initialState, action) => {
                 currentPage:action.payload.page,
                 totalCountPage:action.payload.total_pages
             } 
+
+
             
-        case ActionTypes.FETCH_MOVIES_FAILURE:
+
+        case ActionTypes.FETCH_GENRES_SUCCESS:
+            return{ ...state,
+                    loading:false,
+                    genres:action.payload}
+        
+            
+        
+        case ActionTypes.FETCH_ERROR:   
             return{
                 ...state,
                 loading:false,
-                movieError:action.payload 
+                error:action.payload 
             }    
 
         default:
@@ -50,4 +61,4 @@ const movies = (state = initialState, action) => {
     }
 }
 
-export default movies;
+export default moviesDiscover;

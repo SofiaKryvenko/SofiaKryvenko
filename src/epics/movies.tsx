@@ -6,8 +6,14 @@ import queryString  from "query-string"
 
 
 import {API_KEY,API_URL,PAGE} from "../constants/configsKey"
-import { FETCH_MOVIES } from "../constants/actionTypes";
-import { fetchMoviesSuccess, fetchMoviesFailure } from '../actions/movies';
+import { FETCH_MOVIES,FETCH_MOVIE,FETCH_GENRES,FETCH_CREDITS } from "../constants/actionTypes";
+import { fetchMoviesSuccess,
+    fetchError,
+         fetchMovieSuccess,
+         fetchGenresSuccess,
+         fetchCreditsSuccess,
+         fetchMovieInfoFailure
+        } from '../actions/movies';
 
 
 export const fetchMoviesEpic = action$ =>
@@ -16,8 +22,41 @@ export const fetchMoviesEpic = action$ =>
         mergeMap((action)=>
             ajax.getJSON(`${API_URL}/movie/popular${API_KEY}&${queryString.stringify(action.payload)}`).pipe(
             map((response)=>{
-                console.log(response); 
                 return fetchMoviesSuccess(response)}),
-            catchError((error) => of(fetchMoviesFailure(error)))     
+            catchError((error) => of(fetchError(error)))     
         ))
     )
+
+ export const fetchMovieEpic = action$ =>
+ action$.pipe(
+     ofType(FETCH_MOVIE),
+     mergeMap((action)=>
+         ajax.getJSON(`${API_URL}/movie/${action.payload}${API_KEY}`).pipe(
+         map((response)=>{ 
+             return fetchMovieSuccess(response)}),
+         catchError((error) => of(fetchMovieInfoFailure(error)))     
+     ))
+ )
+
+
+export const fetchGenresEpic= action$ =>
+action$.pipe(
+    ofType(FETCH_GENRES),
+    mergeMap(()=>
+        ajax.getJSON(`${API_URL}/genre/movie/list${API_KEY}`).pipe(
+        map((response)=>{
+            return fetchGenresSuccess(response.genres)}),
+        catchError((error) => of(fetchError(error)))     
+    ))
+)
+
+export const fetchCreditsEpic = action$ =>
+action$.pipe(
+    ofType(FETCH_CREDITS),
+    mergeMap((action)=>
+        ajax.getJSON(`${API_URL}/movie/${action.payload}/credits${API_KEY}`).pipe(
+        map((response)=>{ 
+            return fetchCreditsSuccess(response.cast)}),
+        catchError((error) => of(fetchMovieInfoFailure(error)))     
+    ))
+) 

@@ -1,13 +1,10 @@
 import React from 'react';
-import {NavLink} from "react-router-dom"
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {compose} from "ramda";
 
 import Grid from '@material-ui/core/Grid';
-// import Button from '@material-ui/core/Button';
-import { withStyles } from "@material-ui/core/styles";
+
 
 import {startLoadingFirebase} from "../../actions/firebase"
 import {userLogOut} from "../../actions/user"
@@ -18,14 +15,7 @@ import Header from "../../components/Header"
 import "./app.scss"
 
 
-const styles=()=>({
-	root:{
-		backgroundColor:"#ffff",
-		"&:hover":{
-			backgroundColor:"#ffff"
-		}
-	}
-})
+
 
 
 class App extends React.Component {
@@ -64,7 +54,6 @@ const mapDispathToProps = dispath =>
   );
 
 export default compose(
-	withStyles(styles),
 	connect( mapStateToProps,mapDispathToProps)
 )(App)
 

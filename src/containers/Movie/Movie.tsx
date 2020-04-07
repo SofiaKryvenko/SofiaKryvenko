@@ -1,25 +1,28 @@
-import React from "react"
+import React from 'react'
 import {compose} from "ramda";
 import {  withRouter } from 'react-router-dom';
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import {fetchMovies,fetchGenres} from "../../actions/movies"
+import {fetchMovie,fetchCredits,resetMovieData} from "../../actions/movies"
 
-import Home from "../../pages/Home"
+
+import Movie from "../../pages/Movie"
 
 const mapStateToProps = (state) => ({
-    user:state.user,
-    movies:state.moviesDiscover,
+  movie:state.movieInfo.movie,
+  loading:state.movieInfo.loading,
+  cast:state.movieInfo.cast
 });
 
 
 const mapDispathToProps = dispath =>
 bindActionCreators(
   {
-    fetchMovies,
-    fetchGenres
+    fetchMovie,
+    fetchCredits,
+    resetMovieData
   },
   dispath
 );
@@ -28,4 +31,4 @@ bindActionCreators(
 export default compose(
     withRouter,
     connect( mapStateToProps,mapDispathToProps)
-    )(Home)
+    )(Movie)

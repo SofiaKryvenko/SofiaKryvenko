@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import SearchBox from "../../components/SearchBox"
 import CardItem from "../../components/CardItem"
 import PaginationDisplay from "../../components/Pagination"
+import GenresBox from "../../components/GenresBox"
 
 
 
@@ -21,6 +22,7 @@ componentDidMount(){
     const {match} = this.props
     const page = propOr(1,match.params)
     this.props.fetchMovies({page:page})
+    this.props.fetchGenres()
 }
 
 onHandlePageChange(page){
@@ -31,10 +33,10 @@ onHandlePageChange(page){
 
     render(){
         const {movies,match} = this.props;
-
-        console.log("currentPage",match)
+        console.log("movie",movies)
         return(
-            <Grid container className="container" justify="center">            
+            <Grid container className="container" justify="center"> 
+                <GenresBox genres={movies.genres}/>           
                 <SearchBox/>
 
                 <Grid container justify="space-between" className="mt-30">
