@@ -3,7 +3,7 @@ import { combineEpics } from 'redux-observable';
 import {startAuthListenerEpic} from "./auth";
 import {startLoadingFirebaseEpic} from "./firebase";
 import {userLoginEpic,userSignupEpic,userSignupUpdateEpic,userSignOutEpic} from "./user"
-import {fetchMoviesEpic,fetchMovieEpic,fetchGenresEpic,fetchCreditsEpic} from "./movies"
+import {fetchMoviesEpic,fetchMovieEpic,fetchCreditsEpic} from "./movies"
 
 
 const rootEpic = combineEpics(
@@ -15,7 +15,6 @@ const rootEpic = combineEpics(
     userSignOutEpic,
     fetchMoviesEpic,
     fetchMovieEpic,
-    fetchGenresEpic,
     fetchCreditsEpic
 );
 export default rootEpic;

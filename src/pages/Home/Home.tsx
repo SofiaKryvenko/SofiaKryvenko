@@ -16,13 +16,13 @@ class Home extends React.Component{
         super(props)
 
         this.onHandlePageChange = this.onHandlePageChange.bind(this);
+        this.onGenreClick = this.onGenreClick.bind(this);
     }
 
 componentDidMount(){
     const {match} = this.props
-    const page = propOr(1,match.params)
+    const page = propOr(1,'page',match.params)
     this.props.fetchMovies({page:page})
-    this.props.fetchGenres()
 }
 
 onHandlePageChange(page){
@@ -31,12 +31,18 @@ onHandlePageChange(page){
     this.props.history.push(`/home/${page}`);
 }
 
+onGenreClick (genreId){
+    console.log("000000000",genreId)
+    const page = propOr(1,'page',this.props.match.params)
+    this.props.fetchMovies({page:page,with_genres:genreId})
+}
+
     render(){
         const {movies,match} = this.props;
         console.log("movie",movies)
         return(
             <Grid container className="container" justify="center"> 
-                <GenresBox genres={movies.genres}/>           
+                <GenresBox onHandleClick={this.onGenreClick}/>           
                 <SearchBox/>
 
                 <Grid container justify="space-between" className="mt-30">

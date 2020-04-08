@@ -5,7 +5,7 @@ import {  withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import {fetchMovies,fetchGenres} from "../../actions/movies"
+import {fetchMovies} from "../../actions/movies"
 
 import Home from "../../pages/Home"
 
@@ -19,7 +19,6 @@ const mapDispathToProps = dispath =>
 bindActionCreators(
   {
     fetchMovies,
-    fetchGenres
   },
   dispath
 );

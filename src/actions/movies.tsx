@@ -11,18 +11,6 @@ export const fetchMoviesSuccess = (movies) => ({
 });
 
 
-
-//genre
-
-export const fetchGenres = () => ({
-    type: ActionTypes.FETCH_GENRES
-});
-
-export const fetchGenresSuccess = (genres) => ({
-    type: ActionTypes.FETCH_GENRES_SUCCESS,
-    payload: genres
-});
-
 export const fetchError = (error) => ({
     type: ActionTypes.FETCH_ERROR,
     payload: error

@@ -12,7 +12,6 @@ const initialState ={
         keywords: ''
       },
     movies:[],
-    genres:[],
     loading:false,
     error:null,
     currentPage:1,
@@ -40,15 +39,8 @@ const moviesDiscover = (state = initialState, action) => {
             } 
 
 
-            
-
-        case ActionTypes.FETCH_GENRES_SUCCESS:
-            return{ ...state,
-                    loading:false,
-                    genres:action.payload}
         
-            
-        
+                
         case ActionTypes.FETCH_ERROR:   
             return{
                 ...state,
