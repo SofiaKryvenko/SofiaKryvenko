@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from 'react-router-dom'
 
 import {
     Paper,
@@ -18,8 +17,7 @@ class Movie extends React.Component{
       }
 
     componentDidMount(){
-        const {match} = this.props;
-        const movieId = match.params.id;
+        const movieId = this.props.match.params.id;
         this.props.fetchMovie(movieId)
         this.props.fetchCredits(movieId)
     }
@@ -29,13 +27,11 @@ class Movie extends React.Component{
     }
 
     render(){
-        const {movie}=this.props;
-        console.log("movie=",movie)
+        const {movie,history}=this.props;
 
- 
     return movie && movie.title ? (
       <Container  fixed>
-          <IconButton color="primary" component={Link} to="/">
+          <IconButton color="primary" onClick={()=>history.goBack()}>
             <ReplyIcon/>
           </IconButton>
         <div className="MovieDetails mb-30">
