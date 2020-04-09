@@ -87,13 +87,6 @@ const withFormikBag = withFormik({
     }),
 
     handleSubmit: (values, { setSubmitting, props }) => {
-      // const { password, email } = values;
-  
-      // const formValues = {
-      //   email,
-      //   password
-      // };
-  
       return props
         .onSubmit(values)
         .then(() => {

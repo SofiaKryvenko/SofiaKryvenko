@@ -25,7 +25,6 @@ export const userLoginEpic = (action$, state$, { firebase }) =>
         app.auth().signInWithEmailAndPassword(payload.email, payload.password)
       ).pipe(
         map(() => userLoginCompleted()),
-        tap(()=>history.push("/home")),
         catchError((err) => of(userLoginSignupError(err)))
       )
     )
@@ -41,7 +40,6 @@ export const userSignupEpic = (action$, state$, { firebase }) =>
         payload.name
       ).pipe(
         map((name) => userSignupUpdate(name)),
-        tap(()=>history.push("/home")),
         catchError((err) => of(userLoginSignupError(err)))
       )
     })
@@ -77,8 +75,7 @@ export const userSignupUpdateEpic = (action$, state$, { firebase }) =>
         return createObservableFromFirebase(
           app.auth().signOut()
         ).pipe(
-          mapTo(userLogOutSuccess()),
-          tap(()=>history.push("/login"))
+          mapTo(userLogOutSuccess())
         )
       })
     )

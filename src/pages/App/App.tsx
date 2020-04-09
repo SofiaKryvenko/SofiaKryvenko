@@ -7,12 +7,12 @@ import Grid from '@material-ui/core/Grid';
 
 
 import {startLoadingFirebase} from "../../actions/firebase"
-import {userLogOut} from "../../actions/user"
+import {userLogOut,userSignup} from "../../actions/user"
 
 import Header from "../../components/Header"
  import AppRouter from '../../routes';
 
-import "./app.scss"
+
 
 
 
@@ -29,7 +29,11 @@ class App extends React.Component {
 		return (
 
 			<Grid container justify="center" className="app-wrapper">
-				{this.props.user && <Header logout={this.props.userLogOut} />}
+				 <Header 
+					 logout={this.props.userLogOut} 
+					 auth={this.props.auth}
+				/>
+					 
 				<div className="page-content">
 					<AppRouter/>
 				</div>
@@ -40,7 +44,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	user:state.auth.user
+	auth:state.auth
   });
 
 
@@ -48,7 +52,8 @@ const mapDispathToProps = dispath =>
   bindActionCreators(
     {
 		startLoadingFirebase,
-		userLogOut
+		userLogOut,
+		userSignup
     },
     dispath
   );

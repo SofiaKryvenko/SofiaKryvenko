@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux";
 import {userSignup} from "../../actions/user"
 
 
-import Register from "../../pages/Register"
+import SignupModal from "../../pages/Register"
 
 const mapStateToProps = () => ({
 	
@@ -27,4 +27,4 @@ bindActionCreators(
 export default compose(
     withRouter,
     connect( mapStateToProps,mapDispathToProps)
-    )(Register)
+    )(SignupModal)

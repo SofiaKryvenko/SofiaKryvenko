@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const PaginationDisplay =({count,changePage})=>{
+const PaginationDisplay =({count,changePage,page})=>{
   const classes = useStyles();
-  const [page, setPage] = React.useState(1);
+  // const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
-    setPage(value);
+    // setPage(value);
     changePage(value);
   };
 

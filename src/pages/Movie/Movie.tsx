@@ -35,7 +35,7 @@ class Movie extends React.Component{
  
     return movie && movie.title ? (
       <Container  fixed>
-          <IconButton color="primary" component={Link} to="/home">
+          <IconButton color="primary" component={Link} to="/">
             <ReplyIcon/>
           </IconButton>
         <div className="MovieDetails mb-30">

@@ -20,15 +20,14 @@ class Home extends React.Component{
     }
 
 componentDidMount(){
-    const {match} = this.props
-    const page = propOr(1,'page',match.params)
-    this.props.fetchMovies({page:page})
+    const page = this.props.match.params.page || 1;
+    this.props.fetchMovies({page})
 }
 
 onHandlePageChange(page){
-    this.props.fetchMovies({page:page})
+    this.props.fetchMovies({page})
     window.scrollTo(0,0)
-    this.props.history.push(`/home/${page}`);
+    this.props.history.push(`/${page}`);
 }
 
 onGenreClick (genreId){
@@ -39,7 +38,6 @@ onGenreClick (genreId){
 
     render(){
         const {movies,match} = this.props;
-        console.log("movie",movies)
         return(
             <Grid container className="container" justify="center"> 
                 <GenresBox onHandleClick={this.onGenreClick}/>           
@@ -50,7 +48,7 @@ onGenreClick (genreId){
                     info={movie}
                 />))}
                     </Grid>  
-                    <PaginationDisplay count={movies.totalCountPage} changePage={this.onHandlePageChange}/>
+                    <PaginationDisplay count={movies.totalCountPage} page={movies.currentPage} changePage={this.onHandlePageChange}/>
             </Grid>
         
         )

@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 
 import {userLogin} from "../../actions/user"
 
-import Login from "../../pages/Login"
+import LoginModal from "../../pages/Login"
 
 const mapStateToProps = (state) => ({
     user:state.user
@@ -26,4 +26,4 @@ bindActionCreators(
 export default compose(
     withRouter,
     connect( mapStateToProps,mapDispathToProps)
-    )(Login)
+    )(LoginModal)

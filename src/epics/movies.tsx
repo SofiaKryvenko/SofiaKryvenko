@@ -48,3 +48,14 @@ action$.pipe(
         catchError((error) => of(fetchMovieInfoFailure(error)))     
     ))
 ) 
+
+// export const searchMoviesEpic =action$ =>
+// action$.pipe(
+//     ofType(FETCH_CREDITS),
+//     mergeMap((action)=>
+//         ajax.getJSON(`${API_URL}/search/movie${API_KEY}&query=${action.query}`).pipe(
+//         map((response)=>{ 
+//             return fetchCreditsSuccess(response.cast)}),
+//         catchError((error) => of(fetchMovieInfoFailure(error)))     
+//     ))
+// ) 

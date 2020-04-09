@@ -1,10 +1,9 @@
 import React from 'react';
-import {NavLink} from "react-router-dom"
 
-import Grid from '@material-ui/core/Grid';
+
+
 import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
-
+import Dialog from '@material-ui/core/Dialog';
 import LoginForm from "../../components/Forms/LoginForm"
 
 
@@ -17,23 +16,17 @@ interface ILoginProps {
 	}
 }
 
-const Login:React.Component<ILoginProps>=({userLogin,user})=>  {
-	const userError = user.error;
+const LoginModal:React.Component<ILoginProps>=(props)=>  {
+	const userError = props.user.error;
 
-	return(<Grid container justify="center">
+	return(<Dialog title="Signup form" open={props.isOpen} onClose={props.closeModal}>
 				<div className="main-background"/>
 				<Card className="p-15">
-					<LoginForm  onSubmit={userLogin}/>
-					<Grid item className="mt-20">
-						<Typography variant="body2" align="center">Don't have an account yet?</Typography>
-						<Typography variant="body2" align="center">
-							<NavLink to="/register"  color="primary" className="mt-10 link"> Sign up</NavLink>
-						</Typography>
-				</Grid> 		
+					<LoginForm  onSubmit={props.userLogin}/>		
 				</Card>
 				{userError && alert(userError)}
-			</Grid>
+			</Dialog>
 		);}
 
 
-export default Login;
+export default LoginModal;
