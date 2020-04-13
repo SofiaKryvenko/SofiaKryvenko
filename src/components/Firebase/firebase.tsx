@@ -20,6 +20,7 @@ export const lazyLoadFireBase = (config) => {
   const firestore$ = from(import('firebase/firestore'))
   const fireAuth$ = from(import('firebase/auth'))
 
+
   return forkJoin(app$, firestore$, fireAuth$).pipe(
       map(([firebase]) => {
           const app = firebase.initializeApp(config)

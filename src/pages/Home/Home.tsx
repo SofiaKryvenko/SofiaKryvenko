@@ -1,11 +1,10 @@
 import React from 'react' 
 
-import Grid from '@material-ui/core/Grid';
-import SearchBox from "../../components/SearchBox"
-import CardItem from "../../components/CardItem"
-import PaginationDisplay from "../../components/Pagination"
-import GenresBox from "../../components/GenresBox"
 
+import SearchBox from "../../components/SearchBox"
+import MovieList from "../../components/MovieList"
+import PaginationDisplay from "../../components/Pagination"
+import {   Grid } from '@material-ui/core';
 
 
 
@@ -40,13 +39,8 @@ onHandlePageChange(page){
             <Grid container className="container" justify="center"> 
                 {/* <GenresBox onHandleClick={this.onGenreClick}/>            */}
                 <SearchBox/>
-
-                <Grid container justify="space-between" className="mt-30">
-                    {(movies.movies||[]).map(movie=>(<CardItem key={movie.id}
-                    info={movie}
-                />))}
-                    </Grid>  
-                    <PaginationDisplay count={movies.totalCountPage} page={movies.currentPage} changePage={this.onHandlePageChange}/>
+                <MovieList movies={movies.movies} title="Popular"/>
+                <PaginationDisplay count={movies.totalCountPage} page={movies.currentPage} changePage={this.onHandlePageChange}/>
             </Grid>
         
         )

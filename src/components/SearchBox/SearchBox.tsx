@@ -1,84 +1,73 @@
-import React from "react"
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { propOr } from 'ramda';
+import Autosuggest, {
+  ChangeEvent,
+  GetSuggestionValue,
+  InputProps,
+  OnSuggestionsClearRequested,
+  RenderSuggestion,
+  SuggestionsFetchRequested
+} from 'react-autosuggest';
 
-
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
+import renderSuggestion from './renderSuggestion';
 import {API_KEY,API_URL} from "../../constants/configsKey"
 import "./searchBox.scss"
 
+interface State {
+  value: string;
+  suggestions:[];
+}
 
-class SearchBox extends React.Component{
+const getSuggestionValue = propOr('', 'title');
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: '',
-      results: [],
-      showResults: false
-    };
+class SearchBox extends React.PureComponent< State> {
+  readonly state: State = {
+    value: '',
+    suggestions: []
+  };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.hideResults = this.hideResults.bind(this);
-    this.handleOnBlur = this.handleOnBlur.bind(this);
-  }
+  
 
-  handleOnBlur(event) {
-    if (
-      !event.relatedTarget ||
-      !event.relatedTarget.className.toLowerCase().includes('search')
-    ) {
-      this.hideResults();
-    }
-  }
+  onSuggestionFetchRequested: SuggestionsFetchRequested = async ({ value }) => {
+      const url = `${API_URL}/search/movie${API_KEY}&query=${value}`;
+      fetch(url).then(response => response.json()).then(data=> this.setState({  suggestions: data.results.slice(0, 5) }))
 
-  hideResults() {
-    setTimeout(() => this.setState({ showResults: false }), 100);
-  }
+  };
 
+  onSuggestionsClearRequested: OnSuggestionsClearRequested = () => {
+    this.setState({ suggestions: [] });
+  };
 
-  handleInputChange(e) {
-    const value= e.target.value;
-    this.setState({ term:value  },()=>this.handleSearch(value));
-  }
+  onChange = (event: React.FormEvent<HTMLInputElement>, params: ChangeEvent): void => {
+    this.setState({ value: params.newValue });
+  };
 
-  handleSearch(query){
-    if(!query || query.length < 2) return;
-    const url = `${API_URL}/search/movie${API_KEY}&query=${query}`;
-     fetch(url).then(response => response.json()).then(data=> this.setState({ results: data.results, showResults: true }))
-  }
+  getInputProps = ()=> ({
+    placeholder: 'Search by title',
+    value: this.state.value,
+    onChange: this.onChange
+  });
 
+  renderSuggestion = (suggestion, onSuggestionSelected) =>
+    renderSuggestion(suggestion, onSuggestionSelected);
 
-  render(){
-
+  render() {
     return (
-       <Grid container justify="center" className="relative search" onBlur={this.handleOnBlur}
-       onClick={this.hideResults}>
-         <Paper className="paper">
-        <InputBase
-            value={this.state.term}
-            className="input"
-            placeholder="Search movie..."
-            onChange={this.handleInputChange}
-       />
-      <IconButton type="submit"aria-label="search">
-        <SearchIcon />
-      </IconButton>
-        </Paper>
-              {this.state.showResults && <ul className="searchResults"  >{(this.state.results||[]).slice(0, 10)
-              .map(result=><li className="result"  key={result.id}>
-                    <Link className="link" to={`/movie/${result.id}`}>
-                        <span >{result.title}</span>
-                    </Link>
-                          </li>)}
-                      </ul>}        
-          </Grid>)
+        <div className="searchResults mb-30">
+            <Autosuggest
+          suggestions={this.state.suggestions}
+          getSuggestionValue={getSuggestionValue}
+          inputProps={this.getInputProps()}
+          onSuggestionsFetchRequested={this.onSuggestionFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          renderSuggestion={this.renderSuggestion}
+          onSuggestionSelected={this.props.onSuggestionSelected}
+        />
+        </div>
+        
+    );
   }
-    
 }
 
 export default SearchBox;
+

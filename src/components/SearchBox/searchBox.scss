@@ -20,15 +20,66 @@ $highlight-color: #00ACC1;
   width: 50%;
   background: white;
   border-radius: 10px;
-  overflow: hidden;
   margin-top: 5px;
   list-style-type: none;
   box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.3);
   z-index: 1;
-  padding: 10px;
-  top: 55px;
   @media (max-width: 500px) {
     width: 80%;
+  }
+  .react-autosuggest__container {
+    position: relative;
+  }
+  .react-autosuggest__input {
+    width: 100%;
+    height: 32px;
+    padding: 10px;
+    padding-right: 0px;
+    font-weight: 400;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    -webkit-appearance: none;
+  }
+  .react-autosuggest__input--focused {
+    outline: none;
+  }
+  .react-autosuggest__input::-ms-clear {
+    display: none;
+  }
+  .react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .react-autosuggest__suggestions-container {
+    display: none;
+  }
+  .react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: 55px;
+    width: 100%;
+   
+    border: 1px solid #aaa;
+    background-color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    z-index: 2;
+  }
+  .react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 0;
+  }
+  .react-autosuggest__suggestion--highlighted {
+    background-color: #ddd;
   }
 }
 
@@ -47,33 +98,4 @@ $highlight-color: #00ACC1;
   color: rgb(10, 10, 10);
   text-decoration: none;
   transition: background 0.1s ease, color 0.1s ease;
-
-  & img {
-    max-width: 24px;
-    height: 100%;
-
-    @media (min-width: 500px) {
-      max-width: 36px;
-    }
-  }
-
-  & .title {
-    align-self: center;
-    margin-left: 10px;
-  }
-
-  & .year {
-    color: $highlight-color;
-    font-size: 0.85rem;
-    font-weight: 100;
-  }
-
-  &:hover {
-    background: $highlight-color;
-    color: white;
-
-    .year {
-      color: black;
-    }
-  }
 }

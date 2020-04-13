@@ -29,7 +29,6 @@ const moviesDiscover = (state = initialState, action) => {
 
         //add split with state
         case ActionTypes.FETCH_MOVIES_SUCCESS:
-            console.log("----",action.payload)
             return{
                 ...state,
                 loading:false,
