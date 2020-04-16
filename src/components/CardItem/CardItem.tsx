@@ -20,7 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {IMG_W300} from "../../constants/configsKey"
 import MoviePoster from "../moviePoster"
 
-import {addToList} from "../../actions/favourite"
+import {addToList,removeFromList} from "../../actions/favourite"
 
 const useStyles = makeStyles({
     root: {
@@ -35,11 +35,13 @@ const useStyles = makeStyles({
     }
   });
 
-const CardItem =({info,auth,addToList})=>{
+const CardItem =({info,auth,addToList,favouriteMovies,removeFromList})=>{
     const classes = useStyles();
     const {title,poster_path,id,vote_average} = info;
-  
-   
+    const isFavourite = (movieId)=>{
+        return !!(favouriteMovies||[]).find(favoriteMovie => favoriteMovie.id === id);
+    }
+
     return <Card className={`${classes.root} mb-10`}>
         <Link underline='none' component={RouterLink} to={`/movie/${id}`}>
             <MoviePoster size={IMG_W300} poster={poster_path}/>
@@ -56,22 +58,13 @@ const CardItem =({info,auth,addToList})=>{
             {
         auth.loggedIn &&
         <CardActions>
-           <IconButton onClick={()=>addToList({movieId:id,userId:auth.user.uid})}>
-                    <FavoriteBorderIcon color="error"/>
-             </IconButton>
-             <IconButton onClick={()=>addToList({movieId:id,userId:auth.user.uid})}>
+       
+           <IconButton onClick={()=>removeFromList({movieId:id,userId:auth.user.uid})}>
                     <FavoriteIcon color="error"/>
              </IconButton>
-            {/* {
-              isFavorite ?
-                  <IconButton tooltip="Remove from favorites" onClick={ removeFromFavorite }>
-                    <Favorite color="red"/>
-                  </IconButton>
-                  :
-                  <IconButton tooltip="Add to favorites" onClick={ addToFavorite }>
-                    <FavoriteBorder color="red"/>
-                  </IconButton>
-            } */}
+             <IconButton onClick={()=>addToList({movieId:id,userId:auth.user.uid})}>                    
+                    <FavoriteBorderIcon color="error"/>
+             </IconButton>
         </CardActions>
       }
     </Card>
@@ -86,6 +79,7 @@ const mapStateToProps = (state) => ({
 const mapDispathToProps = dispath =>
   bindActionCreators(
     {
+      removeFromList,
       addToList
     },
     dispath

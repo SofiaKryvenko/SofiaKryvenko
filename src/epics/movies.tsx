@@ -6,14 +6,14 @@ import queryString  from "query-string"
 
 
 import {API_KEY,API_URL} from "../constants/configsKey"
-import { FETCH_MOVIES,FETCH_MOVIE,FETCH_CREDITS,ADD_TO_LIST } from "../constants/actionTypes";
+import { FETCH_MOVIES,FETCH_MOVIE,FETCH_CREDITS,ADD_TO_LIST,REMOVE_FROM_LIST } from "../constants/actionTypes";
 import { fetchMoviesSuccess,
          fetchError,
          fetchMovieSuccess,
          fetchCreditsSuccess,
          fetchMovieInfoFailure
         } from '../actions/movies';
-import {addToListSuccess} from "../actions/favourite" ;       
+import {successListFirebaseAction} from "../actions/favourite" ;       
 import { createObservableFromFirebase } from '../utils/createObservable';
 
 
@@ -63,12 +63,24 @@ export const addMovieToFavorite = (action$, state$, { firebase }) =>
             })
         )
     ),
-    map(()=>addToListSuccess())
+    map(()=>successListFirebaseAction())
     )
 
 
 
+    export const removeMovieFromFavorite = (action$, state$, { firebase }) =>
+    action$.pipe(
+      ofType(REMOVE_FROM_LIST),
+      flatMap((action) => combineLatest(firebase, from([action.payload]))),
+      flatMap(([app, payload]) => createObservableFromFirebase(app.database().ref(`users/${payload.userId}/favoriteMovies/${payload.movieId}`).remove()).pipe(
+          map(()=>successListFirebaseAction())
+      )   
+      )
+      )
 
 
 
 
+    //   export const removeMovieFromFavorite = (movieId, userId) => dispatch => {
+    //     firebase.database().ref(`users/${userId}/favoriteMovies/${movieId}`).remove();
+    //   };
