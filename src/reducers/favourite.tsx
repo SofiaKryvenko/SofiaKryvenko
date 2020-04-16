@@ -1,5 +1,5 @@
 import * as ActionTypes from "../constants/actionTypes";
-
+import {toListTransform} from "../helpers"
 
 const initialState ={
     list: [],
@@ -18,7 +18,7 @@ const favourite = (state = initialState, action) => {
 
         case ActionTypes.GET_LIST_SUCCESS:
             return {
-                list:action.payload,
+                list:toListTransform(action.payload),
                 loading:false}    
             
         

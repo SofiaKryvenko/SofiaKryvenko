@@ -30,7 +30,7 @@ import * as ActionTypes from "../constants/actionTypes"
         return {
           loggedIn: true,
           profileLoaded: true,
-          user: { uid: action.payload.uid, displayName: action.payload.displayName },
+          user: { uid: action.payload.uid, displayName: action.payload.displayName,favourite:action.payload.favourite },
         }
 
       case ActionTypes.SET_UNAUTHENTICATED:

@@ -32,13 +32,13 @@ export const renderGenres = (genres) => {
     return date.toLocaleDateString();
   };
 
-  export const formatUserData = (user, favoriteMovies) => {
-    const { uid, displayName } = user;
-  
-    return {
-      isLoggedIn: true,
-      userId: uid,
-      displayName,
-      favoriteMovies
-    };
-  };
+  export const toListTransform = (data)=>{
+    const array =[]
+      // eslint-disable-next-line
+          for (let objKey in data) {
+            data[objKey].key = objKey;
+            array.push(data[objKey]);
+          }
+
+          return array;
+  }

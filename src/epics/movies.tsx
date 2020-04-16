@@ -3,8 +3,7 @@ import { ajax } from 'rxjs/ajax';
 import { combineLatest, concat, from, of } from 'rxjs'
 import { catchError, flatMap, map, switchMap,tap,mapTo ,mergeMap} from 'rxjs/operators'
 import queryString  from "query-string"
-import { Observable } from "rxjs";
-import { stateChanges, ListenEvent } from 'rxfire/database';
+
 
 import {API_KEY,API_URL} from "../constants/configsKey"
 import { FETCH_MOVIES,FETCH_MOVIE,FETCH_CREDITS,ADD_TO_LIST } from "../constants/actionTypes";
@@ -70,12 +69,6 @@ export const addMovieToFavorite = (action$, state$, { firebase }) =>
 
 
 
-// export const addMovieToFavorite = (movieId, userId) => dispatch => {
-//     axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`)
-//         .then(data => {
-//           firebase.database().ref(`users/${userId}/favoriteMovies/${movieId}`).set({ ...data.data });
-//         });
-//   };
 
 
 
