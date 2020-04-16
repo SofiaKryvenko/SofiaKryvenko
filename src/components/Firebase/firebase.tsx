@@ -19,9 +19,9 @@ export const lazyLoadFireBase = (config) => {
   const app$ = from(import('firebase/app'))
   const firestore$ = from(import('firebase/firestore'))
   const fireAuth$ = from(import('firebase/auth'))
+  const database$ = from(import('firebase/database'))
 
-
-  return forkJoin(app$, firestore$, fireAuth$).pipe(
+  return forkJoin(app$, firestore$, fireAuth$,database$ ).pipe(
       map(([firebase]) => {
           const app = firebase.initializeApp(config)
           app.firestore().enablePersistence()

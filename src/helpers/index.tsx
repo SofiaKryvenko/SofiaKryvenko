@@ -31,3 +31,14 @@ export const renderGenres = (genres) => {
     const date = new Date(releaseDate);
     return date.toLocaleDateString();
   };
+
+  export const formatUserData = (user, favoriteMovies) => {
+    const { uid, displayName } = user;
+  
+    return {
+      isLoggedIn: true,
+      userId: uid,
+      displayName,
+      favoriteMovies
+    };
+  };

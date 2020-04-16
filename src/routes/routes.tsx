@@ -30,6 +30,6 @@ const publicRoutes=()=>({
 // }
 
 export default{
-    ...publicRoutes(),
+    ...publicRoutes()
     // ...privateRoutes()
 }

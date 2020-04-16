@@ -3,16 +3,19 @@ import { ajax } from 'rxjs/ajax';
 import { combineLatest, concat, from, of } from 'rxjs'
 import { catchError, flatMap, map, switchMap,tap,mapTo ,mergeMap} from 'rxjs/operators'
 import queryString  from "query-string"
+import { Observable } from "rxjs";
+import { stateChanges, ListenEvent } from 'rxfire/database';
 
-
-import {API_KEY,API_URL,PAGE} from "../constants/configsKey"
-import { FETCH_MOVIES,FETCH_MOVIE,FETCH_CREDITS } from "../constants/actionTypes";
+import {API_KEY,API_URL} from "../constants/configsKey"
+import { FETCH_MOVIES,FETCH_MOVIE,FETCH_CREDITS,ADD_TO_LIST } from "../constants/actionTypes";
 import { fetchMoviesSuccess,
-    fetchError,
+         fetchError,
          fetchMovieSuccess,
          fetchCreditsSuccess,
          fetchMovieInfoFailure
         } from '../actions/movies';
+import {addToListSuccess} from "../actions/favourite" ;       
+import { createObservableFromFirebase } from '../utils/createObservable';
 
 
 export const fetchMoviesEpic = action$ =>
@@ -49,13 +52,30 @@ action$.pipe(
     ))
 ) 
 
-// export const searchMoviesEpic =action$ =>
-// action$.pipe(
-//     ofType(FETCH_CREDITS),
-//     mergeMap((action)=>
-//         ajax.getJSON(`${API_URL}/search/movie${API_KEY}&query=${action.query}`).pipe(
-//         map((response)=>{ 
-//             return fetchCreditsSuccess(response.cast)}),
-//         catchError((error) => of(fetchMovieInfoFailure(error)))     
-//     ))
-// ) 
+
+export const addMovieToFavorite = (action$, state$, { firebase }) =>
+  action$.pipe(
+    ofType(ADD_TO_LIST),
+    flatMap((action) => combineLatest(firebase, from([action.payload]))),
+    flatMap(([app, payload]) =>  ajax.getJSON(`${API_URL}/movie/${payload.movieId}${API_KEY}`).pipe(
+        flatMap((response)=>{
+            const ref = app.database().ref(`users/${payload.userId}/favoriteMovies/${payload.movieId}`)
+                return createObservableFromFirebase(ref.set({...response}))
+            })
+        )
+    ),
+    map(()=>addToListSuccess())
+    )
+
+
+
+
+// export const addMovieToFavorite = (movieId, userId) => dispatch => {
+//     axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`)
+//         .then(data => {
+//           firebase.database().ref(`users/${userId}/favoriteMovies/${movieId}`).set({ ...data.data });
+//         });
+//   };
+
+
+

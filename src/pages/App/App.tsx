@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import {  withRouter } from 'react-router-dom';
 import { bindActionCreators } from "redux";
 import {compose} from "ramda";
 
@@ -59,6 +60,7 @@ const mapDispathToProps = dispath =>
   );
 
 export default compose(
+	withRouter,
 	connect( mapStateToProps,mapDispathToProps)
 )(App)
 

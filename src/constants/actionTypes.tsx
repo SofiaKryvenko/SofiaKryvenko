@@ -20,6 +20,12 @@ export const USER_SIGN_OUT = "USER_SIGN_OUT"
 export const USER_SIGN_OUT_SUCCESS ="USER_SIGN_OUT_SUCCESS"
 export const USER_SIGN_OUT_FAIL = "USER_SIGN_OUT_FAIL"
 
+//profile user
+
+export const GET_PROFILE ="GET_PROFILE"
+export const GET_PROFILE_SUCCESS ="GET_PROFILE_SUCCESS"
+export const GET_PROFILE_FAIL = "GET_PROFILE_FAIL"
+
 //discover movies info
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
@@ -39,3 +45,13 @@ export const FETCH_CREDITS = 'FETCH_CREDITS';
 export const FETCH_CREDITS_SUCCESS = 'FETCH_CREDITS_SUCCESS';
 export const MOVIE_INFO_ERROR = 'MOVIE_INFO_ERROR';
 export const RESET_MOVIE_INFO = 'RESET_MOVIE_INFO';
+
+//lists
+export const GET_LIST = 'GET_LIST';
+export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS';
+
+export const ADD_TO_LIST = 'ADD_TO_LIST';
+export const ADD_TO_LIST_SUCCESS = 'ADD_TO_LIST_SUCCESS';
+export const LIST_ERROR = 'LIST_ERROR';
+
+export const NULL = "NULL"

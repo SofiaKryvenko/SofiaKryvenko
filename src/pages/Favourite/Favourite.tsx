@@ -1,8 +1,14 @@
 import React from "react"
 
+
+
 class Favourite extends React.Component {
+
+    componentWillMount(){
+    }
+
     render(){
-        return "dddddddddddddddddddddddddddddddddddd"
+        return <p>"dddddddddddddddddddddddddddddddddddd"</p>
     }
 }
 
