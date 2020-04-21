@@ -63,8 +63,7 @@ export const addMovieToFavorite = (action$, state$, { firebase }) =>
             })
         )
     ),
-    map(()=>successListFirebaseAction())
-    )
+    map(()=>successListFirebaseAction()))
 
 
 
@@ -74,13 +73,4 @@ export const addMovieToFavorite = (action$, state$, { firebase }) =>
       flatMap((action) => combineLatest(firebase, from([action.payload]))),
       flatMap(([app, payload]) => createObservableFromFirebase(app.database().ref(`users/${payload.userId}/favoriteMovies/${payload.movieId}`).remove()).pipe(
           map(()=>successListFirebaseAction())
-      )   
-      )
-      )
-
-
-
-
-    //   export const removeMovieFromFavorite = (movieId, userId) => dispatch => {
-    //     firebase.database().ref(`users/${userId}/favoriteMovies/${movieId}`).remove();
-    //   };
+      )))

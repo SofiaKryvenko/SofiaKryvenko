@@ -5,7 +5,12 @@ export const addToList = (data)=>({
     payload: data
 })
 
-export const addToListSuccess =()=>({
+export const removeFromList  = (data)=>({
+    type: ActionTypes.REMOVE_FROM_LIST,
+    payload: data
+})
+
+export const successListFirebaseAction =()=>({
     type:ActionTypes.NULL
 })
 

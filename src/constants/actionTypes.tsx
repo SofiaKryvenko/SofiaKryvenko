@@ -51,6 +51,7 @@ export const GET_LIST = 'GET_LIST';
 export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS';
 
 export const ADD_TO_LIST = 'ADD_TO_LIST';
+export const REMOVE_FROM_LIST = 'REMOVE_FROM_LIST';
 export const ADD_TO_LIST_SUCCESS = 'ADD_TO_LIST_SUCCESS';
 export const LIST_ERROR = 'LIST_ERROR';
 

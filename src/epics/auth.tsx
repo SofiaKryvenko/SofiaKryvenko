@@ -1,12 +1,13 @@
 import { ofType } from 'redux-observable'
-import { combineLatest,of } from 'rxjs';
-import {flatMap,mergeMap} from 'rxjs/operators'
+import { combineLatest,of, concat, from} from 'rxjs';
+import {flatMap,switchMap} from 'rxjs/operators'
 
 
 import { START_AUTH_LISTENER } from "../constants/actionTypes";
 import { setAuthenticated, setUnauthenticated } from '../actions/auth';
 import {getFavouriteMovieListSuccess} from "../actions/favourite";
-import { createObservableFromFirebase } from '../utils/createObservable';
+import { Observable  } from "rxjs";
+
 
 
 
@@ -18,23 +19,30 @@ export const startAuthListenerEpic = (action$, state$, { firebase }) =>
       return combineLatest(firebase)
     }),
     flatMap(([app]) => {
-      return createObservableFromFirebase(new Promise((res) => {
+      const getUser=()=>new Promise((res) => {
         app.auth().onAuthStateChanged((user) => {
-            res(user)
-        })
-    })).pipe(
-        flatMap((user)=>{
-        if(user){
-        const ref =app.database().ref(`users/${user.uid}/favoriteMovies`)
-         return createObservableFromFirebase(new Promise((res)=>{ref.on('value', snapshot => {res(snapshot.val())})})).pipe(
-           mergeMap(value=>of(getFavouriteMovieListSuccess(value),setAuthenticated(user)))
+            res(user);
+        });
+    })
+     return from(getUser()).pipe(
+       flatMap(x=>{
+         console.log(x)
+        return new Observable((observer) => {
+          app.database().ref(`users/${x.uid}/favoriteMovies`).on('value',snapshot=>{
+            const resMovies = snapshot.val();
+             const favoriteMovies = [];
+  
+              // eslint-disable-next-line
+              for (let objKey in resMovies) {
+                resMovies[objKey].key = objKey;
+                favoriteMovies.push(resMovies[objKey]);
+              }
+            observer.next(favoriteMovies)})
+         }
+          ).pipe(
+            switchMap((res)=>concat(of(setAuthenticated(x)),of(getFavouriteMovieListSuccess(res))))
           )
-
-        }else{
-          return setUnauthenticated()
-        }
-      }))
+       })
+     )
     })
   )
-
-
