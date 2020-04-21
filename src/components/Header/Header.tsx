@@ -1,6 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom"
 import {  withRouter } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom'
 
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
@@ -32,7 +33,7 @@ const RenderLoggedMenu = ({logout,user}) => {
         logout();
         setAnchorEl(null);
     }
-
+    
 
 
     return(
@@ -49,7 +50,7 @@ const RenderLoggedMenu = ({logout,user}) => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
-       {/* <MenuItem onClick={goToFavourite} >Favourite</MenuItem> */}
+        <MenuItem component={RouterLink} to="/favourite" onClick={handleClose}>Favourite</MenuItem>
       </Menu>
     </div>
   )};

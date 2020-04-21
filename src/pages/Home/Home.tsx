@@ -4,7 +4,7 @@ import React from 'react'
 import SearchBox from "../../components/SearchBox"
 import MovieList from "../../components/MovieList"
 import PaginationDisplay from "../../components/Pagination"
-import {   Grid } from '@material-ui/core';
+import {  Grid } from '@material-ui/core';
 
 
 
@@ -39,7 +39,9 @@ onHandlePageChange(page){
             <Grid container className="container" justify="center"> 
                 {/* <GenresBox onHandleClick={this.onGenreClick}/>            */}
                 <SearchBox/>
-                <MovieList movies={movies.movies} title="Popular"/>
+                <div className="mt-30">
+                    <MovieList movies={movies.movies} title="Popular"/>
+                </div>             
                 <PaginationDisplay count={movies.totalCountPage} page={movies.currentPage} changePage={this.onHandlePageChange}/>
             </Grid>
         

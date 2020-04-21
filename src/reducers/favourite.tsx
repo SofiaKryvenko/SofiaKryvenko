@@ -18,7 +18,7 @@ const favourite = (state = initialState, action) => {
 
         case ActionTypes.GET_LIST_SUCCESS:
             return {
-                list:toListTransform(action.payload),
+                list:action.payload,
                 loading:false}    
             
         

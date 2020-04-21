@@ -17,10 +17,11 @@ const AppRouter = () =>(<Switch>
        <Route path={path} key={i}    component={routes[path]} />
      ))} 
      <Route component={NotFound} />  */}
-                <Route exact path="/" component={Home} />
+                <Route  path="/" exact component={Home} />
+                {/* <Route  path="/:page" component={Home} /> */}
                 <Route path="/movie/:id" component={Movie} />
                 <Route path="/favourite" component={Favourite} />
-
+                <Route component={NotFound} /> 
     </Switch>
       )
 

@@ -58,13 +58,13 @@ const CardItem =({info,auth,addToList,favouriteMovies,removeFromList})=>{
             {
         auth.loggedIn &&
         <CardActions>
-       
-           <IconButton onClick={()=>removeFromList({movieId:id,userId:auth.user.uid})}>
+       {id && isFavourite(id)?<IconButton onClick={()=>removeFromList({movieId:id,userId:auth.user.uid})}>
                     <FavoriteIcon color="error"/>
-             </IconButton>
-             <IconButton onClick={()=>addToList({movieId:id,userId:auth.user.uid})}>                    
+             </IconButton>:<IconButton onClick={()=>addToList({movieId:id,userId:auth.user.uid})}>                    
                     <FavoriteBorderIcon color="error"/>
-             </IconButton>
+             </IconButton>}
+           
+             
         </CardActions>
       }
     </Card>
